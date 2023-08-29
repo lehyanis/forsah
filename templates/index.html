@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forsah.zone</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
+
+</head>
+<body>
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="static/images/logo.png">
+                    <h2>Forsah<span class="danger">.zone</span></h2>
+                </div>
+                <div class="close" id="close-bt">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+    
+            <div class="sidebar">
+                <a href="#">
+                    <span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="#" class="active">
+                    <span class="material-icons-sharp">filter_center_focus</span>
+                    <h3>Summary</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">bar_chart</span>
+                    <h3>Unusual Volume</h3>
+                    <span class="record-count">200</span>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">poll</span>
+                    <h3>GEX</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+        </aside>
+        <main>
+            <h1>Dashboard</h1>
+
+            <div class="date">
+                <input type="date">
+            </div>
+            <div class="summary">
+                <h2>Summary</h2>
+                <table id="Summary", border="1">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Count</th>
+                            <th>Avg Price</th>
+                            <th>Avg Size</th>
+                            <th>Above Ask</th>
+                            <th>At Ask</th>
+                            <th>Between</th>
+                            <th>At Bid</th>
+                            <th>Below Bid</th>
+                            <th>Signal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in summary %}
+                            <tr>
+                                <td style="color: orange;">{{ row.symbol }}</td>
+                                <td>{{ row.Count }}</td>
+                                <td>{{ row["Avg Price"] }}</td>
+                                <td>{{ "{:,.0f}".format(row["Avg Size"]) }}</td>
+                                <td>{{ row["Above Ask"] if row["Above Ask"] is not none else '' }}</td>
+                                <td>{{ row["At Ask"] if row["At Ask"] is not none else ''}}</td>
+                                <td>{{ row["Between"] if row["Between"] is not none else ''}}</td>
+                                <td>{{ row["At Bid"] if row["At Bid"] is not none else ''}}</td>
+                                <td>{{ row["Below Bid"] if row["Below Bid"] is not none else '' }}</td>
+                                <td style="{{ 'color: red;' if row["Signal"] < 0 else 'color: green;' if row["Signal"] > 0 else '' }}">{{ row["Signal"] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            
+            <div class="trades">
+                <h2>Unusal Volume</h2>
+                <table id="trades", border="1">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>date</th>
+                            <th>time</th>
+                            <th>close</th>
+                            <th>Price</th>
+                            <th>Size</th>
+                            <th>Conditions</th>
+                            <th>Quote</th>
+                            <th>Signal</th>
+                            <th>QuoteCond</th>
+                            <th>EMA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trade in trades %}
+                            <tr>
+                                <td style="color: orange;">{{ trade.symbol }}</td>
+                                <td>{{ trade.date }}</td>
+                                <td>{{ trade.time}}</td>
+                                <td>{{ trade.close }}</td>
+                                <td>{{ trade.price }}</td>
+                                <td>{{ "{:,.0f}".format(trade.size) }}</td>
+                                <td>{{ trade.conditions }}</td>
+                                <td>{{ trade.Quote }}</td>
+                                <td>{{ trade.Signal}}</td>
+                                <td>{{ trade.QuoteCond}}</td>
+                                <td>{{ trade.EMA }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="insights">
+                <div class="sales">
+                    <span class="material-icons-sharp">analytics</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Unusual Volume</h3>
+                            <h1>200</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle cx="38" cy="38" r="36"></circle>
+                            </svg>
+                            <div class="number">
+                                <p>81%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">last 24 </small>
+                </div>
+                <div class="sales">
+                    <span class="material-icons-sharp">analytics</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Unusual Volume</h3>
+                            <h1>200</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle cx="38" cy="38" r="36"></circle>
+                            </svg>
+                            <div class="number">
+                                <p>81%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">last 24 </small>
+                </div>
+                <div class="sales">
+                    <span class="material-icons-sharp">analytics</span>
+                    <div class="middle">
+                        <div class="left">
+                            <h3>Unusual Volume</h3>
+                            <h1>200</h1>
+                        </div>
+                        <div class="progress">
+                            <svg>
+                                <circle cx="38" cy="38" r="36"></circle>
+                            </svg>
+                            <div class="number">
+                                <p>81%</p>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-muted">last 24 </small>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        $(document).ready( function () {
+            $('#Summary').DataTable();
+        } );
+    </script>
+    <script>
+        $(document).ready( function () {
+            $('#trades').DataTable();
+        } );
+
+        new DataTable('#trades', {
+        initComplete: function () {
+            this.api()
+                .columns()
+                .every(function () {
+                    let column = this;
+    
+                    // Create select element
+                    let select = document.createElement('select');
+                    select.add(new Option(''));
+                    column.footer().replaceChildren(select);
+    
+                    // Apply listener for user change in value
+                    select.addEventListener('change', function () {
+                        var val = DataTable.util.escapeRegex(select.value);
+    
+                        column
+                            .search(val ? '^' + val + '$' : '', true, false)
+                            .draw();
+                    });
+    
+                    // Add list of options
+                    column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function (d, j) {
+                            select.add(new Option(d));
+                        });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

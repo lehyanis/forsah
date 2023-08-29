@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title>Summary</title>
+    
+</head>
+<body>
+    <table id="Summary", border="1">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Count</th>
+                <th>Avg Price</th>
+                <th>Avg Size</th>
+                <th>Above Ask</th>
+                <th>At Ask</th>
+                <th>Between</th>
+                <th>At Bid</th>
+                <th>Below Bid</th>
+                <th>Signal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in summary %}
+                <tr>
+                    <td style="color: orange;">{{ row.symbol }}</td>
+                    <td>{{ row.Count }}</td>
+                    <td>{{ row["Avg Price"] }}</td>
+                    <td>{{ "{:,.0f}".format(row["Avg Size"]) }}</td>
+                    <td>{{ row["Above Ask"] if row["Above Ask"] is not none else '' }}</td>
+                    <td>{{ row["At Ask"] if row["At Ask"] is not none else ''}}</td>
+                    <td>{{ row["Between"] if row["Between"] is not none else ''}}</td>
+                    <td>{{ row["At Bid"] if row["At Bid"] is not none else ''}}</td>
+                    <td>{{ row["Below Bid"] if row["Below Bid"] is not none else '' }}</td>
+                    <td style="{{ 'color: red;' if row["Signal"] < 0 else 'color: green;' if row["Signal"] > 0 else '' }}">{{ row["Signal"] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        $(document).ready( function () {
+            $('#Summary').DataTable();
+        } );
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.6/b-2.4.1/b-colvis-2.4.1/b-html5-2.4.1/b-print-2.4.1/cr-1.7.0/fh-3.4.0/rg-1.4.0/rr-1.4.1/sc-2.2.0/sb-1.5.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.css" rel="stylesheet">
+ 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-1.13.6/b-2.4.1/b-colvis-2.4.1/b-html5-2.4.1/b-print-2.4.1/cr-1.7.0/fh-3.4.0/rg-1.4.0/rr-1.4.1/sc-2.2.0/sb-1.5.0/sp-2.2.0/sl-1.7.0/sr-1.3.0/datatables.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <title>Trades</title>
+
+</head>
+<body>
+    <table id="TradesTable", border="1">
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>date</th>
+                <th>time</th>
+                <th>close</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Conditions</th>
+                <th>Quote</th>
+                <th>Signal</th>
+                <th>QuoteCond</th>
+                <th>EMA</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trade in trades %}
+                <tr>
+                    <td style="color: orange;">{{ trade.symbol }}</td>
+                    <td>{{ trade.date }}</td>
+                    <td>{{ trade.time }}</td>
+                    <td>{{ trade.close }}</td>
+                    <td>{{ trade.price }}</td>
+                    <td>{{ "{:,.0f}".format(trade.size) }}</td>
+                    <td>{{ trade.conditions }}</td>
+                    <td>{{ trade.Quote }}</td>
+                    <td>{{ trade.Signal}}</td>
+                    <td>{{ trade.QuoteCond}}</td>
+                    <td>{{ trade.EMA }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        $(document).ready( function () {
+            $('#TradesTable').DataTable();
+        } );
+    </script>
+</body>
+</html>
